@@ -48,6 +48,8 @@ templates:
       abis:
         - name: Token
           file: ./abis/Token.json
+        - name: Market
+          file: ./abis/Market.json
       eventHandlers:
         - event: Transfer(indexed address,indexed address,uint256,indexed bytes)
           handler: handleTransfer

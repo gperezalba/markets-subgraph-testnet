@@ -12,7 +12,6 @@ import { updateBalances } from "./market"
 const PI_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export function handleTransfer(event: Transfer): void {
-    //añadir que si el destino es un market se actualicen balances
     let market = Market.load(event.params.to.toHexString());
 
     if (market != null) {
