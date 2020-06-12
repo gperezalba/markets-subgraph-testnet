@@ -90,7 +90,9 @@ export function handleBuyPi(event: BuyPi): void {
     let market = Market.load(event.address.toHexString());
 
     if (market != null) {
-        market.exchanges.push(exchange.id);
+        let exchanges = market.exchanges;
+        exchanges.push(exchange.id);
+        market.exchanges = exchanges;
         market.save();
     }
 
@@ -133,7 +135,9 @@ export function handleSellPi(event: SellPi): void {
     let market = Market.load(event.address.toHexString());
 
     if (market != null) {
-        market.exchanges.push(exchange.id);
+        let exchanges = market.exchanges;
+        exchanges.push(exchange.id);
+        market.exchanges = exchanges;
         market.save();
     }
 
