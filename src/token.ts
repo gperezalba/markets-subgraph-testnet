@@ -10,19 +10,7 @@ import { Token as TokenContract } from "../generated/templates/Token/Token"
 const PI_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export function handleTransfer(event: Transfer): void {
-    let token = Token.load(event.address.toHexString());
-    let contract = TokenContract.bind(event.address);
-    let supply = contract.try_totalSupply();
-
-    if (!supply.reverted) {
-        token.totalSupply = supply.value.toBigDecimal();
-        token.updated = true;
-    } else {
-        token.totalSupply = BigDecimal.fromString('0');
-        token.updated = false;
-    }
-
-    token.save();
+    
 }
 
 export function createToken(tokenAddress: Address): void {
