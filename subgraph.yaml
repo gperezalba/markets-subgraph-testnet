@@ -22,6 +22,8 @@ dataSources:
           file: ./abis/Controller.json
         - name: Token
           file: ./abis/Token.json
+        - name: Market
+          file: ./abis/Market.json
       eventHandlers:
         - event: NewCommission(uint256)
           handler: handleNewCommission
