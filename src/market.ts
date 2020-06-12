@@ -51,7 +51,7 @@ export function createMarket(event: NewMarket): void {
     MarketTemplate.create(event.params.market);
 }
 
-function updateBalances(address: Address): boolean {
+export function updateBalances(address: Address): boolean {
     let market = Market.load(address.toHexString());
     let marketContract = MarketContract.bind(address);
 

@@ -2,15 +2,22 @@ import { Address, BigDecimal, Bytes, BigInt } from "@graphprotocol/graph-ts"
 import { Transfer } from "../generated/templates/Token/Token"
 
 import { 
-    Token
+    Token, Market
 } from "../generated/schema"
 
 import { Token as TokenContract } from "../generated/templates/Token/Token"
+import { Token as TokenTemplate } from "../generated/templates"
+import { updateBalances } from "./market"
 
 const PI_ADDRESS = "0x0000000000000000000000000000000000000000";
 
 export function handleTransfer(event: Transfer): void {
-    
+    //añadir que si el destino es un market se actualicen balances
+    let market = Market.load(event.params.to.toHexString());
+
+    if (market != null) {
+        updateBalances(event.params.to);
+    }
 }
 
 export function createToken(tokenAddress: Address): void {
@@ -65,6 +72,8 @@ export function createToken(tokenAddress: Address): void {
             token.totalSupply = BigDecimal.fromString('0');
             token.updated = true;
         }
+
+        TokenTemplate.create(tokenAddress);
     }
   
     token.save();
