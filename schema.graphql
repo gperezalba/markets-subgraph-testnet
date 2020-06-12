@@ -1,6 +1,7 @@
 type Controller @entity {
   id: ID! #controller_address
   commission: BigDecimal!
+  updated: Boolean!
 }
 
 type Market @entity {

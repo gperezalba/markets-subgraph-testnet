@@ -50,6 +50,15 @@ export class Controller extends Entity {
   set commission(value: BigDecimal) {
     this.set("commission", Value.fromBigDecimal(value));
   }
+
+  get updated(): boolean {
+    let value = this.get("updated");
+    return value.toBoolean();
+  }
+
+  set updated(value: boolean) {
+    this.set("updated", Value.fromBoolean(value));
+  }
 }
 
 export class Market extends Entity {

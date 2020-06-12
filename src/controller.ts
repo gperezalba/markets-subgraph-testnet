@@ -1,6 +1,6 @@
-import { BigInt, BigDecimal } from "@graphprotocol/graph-ts"
+import { BigInt, BigDecimal, Address } from "@graphprotocol/graph-ts"
 import {
-  NewAddress,
+  Controller as ControllerContract,
   NewCommission,
   NewMarket,
   NewToken
@@ -30,6 +30,17 @@ function createControllerIfNull(address: string): void {
 
   if (controller == null) {
     controller = new Controller(address);
+  }
+
+  let controllerContract = ControllerContract.bind(Address.fromHexString(address));
+  let commission = controllerContract.try_commission();
+
+  if (!commission.reverted) {
+    controller.commission = commission.value.toBigDecimal();
+    controller.updated = true;
+  } else {
+    controller.commission = BigDecimal.fromString('0');
+    controller.updated = false;
   }
 
   controller.save();
