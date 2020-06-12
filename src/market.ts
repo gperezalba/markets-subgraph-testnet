@@ -139,6 +139,7 @@ export function handleSellPi(event: SellPi): void {
         exchanges.push(exchangeId);
         market.exchanges = exchanges;
         market.save();
+        console.log("GUARDADOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
     }
 
     updateBalances(event.address);
