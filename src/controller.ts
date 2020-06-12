@@ -32,7 +32,7 @@ function createControllerIfNull(address: string): void {
     controller = new Controller(address);
   }
 
-  let controllerContract = ControllerContract.bind(Address.fromHexString(address));
+  let controllerContract = ControllerContract.bind(Address.fromHexString(address) as Address);
   let commission = controllerContract.try_commission();
 
   if (!commission.reverted) {
