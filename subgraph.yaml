@@ -1,38 +1,73 @@
-specVersion: 0.0.1
+specVersion: 0.0.2
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: Contract
+    name: Controller
     network: mainnet
     source:
       address: "0x0ff3Cd14bA715da75608C4aa56B95F2e86B2037d"
-      abi: Contract
+      abi: Controller
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.2
+      apiVersion: 0.0.3
       language: wasm/assemblyscript
       entities:
         - NewAddress
         - NewCommission
         - NewMarket
-        - NewOwner
-        - NewSwitcher
         - NewToken
       abis:
-        - name: Contract
-          file: ./abis/Contract.json
+        - name: Controller
+          file: ./abis/Controller.json
       eventHandlers:
-        - event: NewAddress(uint256,address,bool)
-          handler: handleNewAddress
         - event: NewCommission(uint256)
           handler: handleNewCommission
         - event: NewMarket(address,address,address)
           handler: handleNewMarket
-        - event: NewOwner(address,address)
-          handler: handleNewOwner
-        - event: NewSwitcher(address,address)
-          handler: handleNewSwitcher
         - event: NewToken(address)
           handler: handleNewToken
-      file: ./src/mapping.ts
+      file: ./src/controller.ts
+templates:
+  - name: Token
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: Token
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.1
+      language: wasm/assemblyscript
+      file: ./src/token.ts
+      entities:
+        - Transfer
+      abis:
+        - name: Token
+          file: ./abis/Token.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,uint256,indexed bytes)
+          handler: handleTransfer
+  - name: Market
+    kind: ethereum/contract
+    network: mainnet
+    source:
+      abi: Market
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.1
+      language: wasm/assemblyscript
+      file: ./src/market.ts
+      entities:
+        - Transfer
+      abis:
+        - name: Market
+          file: ./abis/Market.json
+      eventHandlers:
+        - event: BuyPi(indexed address,uint256)
+          handler: handleBuyPi
+        - event: NewChange(address,uint256)
+          handler: handleNewChange
+        - event: NewCommission(uint256,uint256)
+          handler: handleNewCommission
+        - event: SellPi(indexed address,uint256)
+          handler: handleSellPi

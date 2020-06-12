@@ -1,6 +1,33 @@
-type ExampleEntity @entity {
-  id: ID!
-  count: BigInt!
-  kind: BigInt! # uint256
-  contractAddress: Bytes! # address
+type Controller @entity {
+  id: ID! #controller_address
+  commission: BigDecimal!
+}
+
+type Market @entity {
+    id: ID!
+    currency1: Token!
+    currency2: Token!
+    currency1Balance: BigDecimal!
+    currency2Balance: BigDecimal!
+    change: BigDecimal!
+    commission: BigDecimal!
+    updated: Boolean!
+    exchanges: [Exchange!]
+}
+
+type Token @entity {
+    id: ID! #token_address
+    tokenDecimals: Int!
+    tokenSymbol: String!
+    tokenName: String!
+    totalSupply: BigDecimal!
+    updated: Boolean!
+}
+
+type Exchange @entity {
+  id: ID! #tx_hash - logIndex
+  market: Market!
+  isBuyPi: Boolean!
+  operator: Bytes!
+  amount: BigDecimal!
 }
