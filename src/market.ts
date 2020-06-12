@@ -87,15 +87,6 @@ export function handleBuyPi(event: BuyPi): void {
 
     exchange.save();
 
-    let market = Market.load(event.address.toHexString());
-
-    if (market != null) {
-        let exchanges = market.exchanges;
-        exchanges.push(exchangeId);
-        market.exchanges = exchanges;
-        market.save();
-    }
-
     updateBalances(event.address);
 }
 
@@ -131,16 +122,6 @@ export function handleSellPi(event: SellPi): void {
     exchange.amount = event.params.tokenAmount.toBigDecimal();
 
     exchange.save();
-
-    let market = Market.load(event.address.toHexString());
-
-    if (market != null) {
-        let exchanges = market.exchanges;
-        exchanges.push(exchangeId);
-        market.exchanges = exchanges;
-        market.save();
-        console.log("GUARDADOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
-    }
 
     updateBalances(event.address);
 }

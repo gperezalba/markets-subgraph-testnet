@@ -13,7 +13,6 @@ type Market @entity {
     change: BigDecimal!
     commission: BigDecimal!
     updated: Boolean!
-    exchanges: [Exchange!]
 }
 
 type Token @entity {
