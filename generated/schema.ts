@@ -153,23 +153,6 @@ export class Market extends Entity {
   set updated(value: boolean) {
     this.set("updated", Value.fromBoolean(value));
   }
-
-  get exchanges(): Array<string> | null {
-    let value = this.get("exchanges");
-    if (value === null) {
-      return null;
-    } else {
-      return value.toStringArray();
-    }
-  }
-
-  set exchanges(value: Array<string> | null) {
-    if (value === null) {
-      this.unset("exchanges");
-    } else {
-      this.set("exchanges", Value.fromStringArray(value as Array<string>));
-    }
-  }
 }
 
 export class Token extends Entity {
@@ -294,6 +277,15 @@ export class Exchange extends Entity {
 
   set isBuyPi(value: boolean) {
     this.set("isBuyPi", Value.fromBoolean(value));
+  }
+
+  get isSellPi(): boolean {
+    let value = this.get("isSellPi");
+    return value.toBoolean();
+  }
+
+  set isSellPi(value: boolean) {
+    this.set("isSellPi", Value.fromBoolean(value));
   }
 
   get operator(): Bytes {

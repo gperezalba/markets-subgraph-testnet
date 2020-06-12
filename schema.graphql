@@ -28,6 +28,7 @@ type Exchange @entity {
   id: ID! #tx_hash - logIndex
   market: Market!
   isBuyPi: Boolean!
+  isSellPi: Boolean!
   operator: Bytes!
   amount: BigDecimal!
 }

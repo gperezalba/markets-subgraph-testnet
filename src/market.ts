@@ -82,6 +82,7 @@ export function handleBuyPi(event: BuyPi): void {
 
     exchange.market = event.address.toHexString();
     exchange.isBuyPi = true;
+    exchange.isSellPi = false;
     exchange.operator = event.params.to;
     exchange.amount = event.params.piAmount.toBigDecimal();
 
@@ -118,6 +119,7 @@ export function handleSellPi(event: SellPi): void {
 
     exchange.market = event.address.toHexString();
     exchange.isBuyPi = false;
+    exchange.isSellPi = true;
     exchange.operator = event.params.to;
     exchange.amount = event.params.tokenAmount.toBigDecimal();
 
