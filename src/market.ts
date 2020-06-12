@@ -91,7 +91,7 @@ export function handleBuyPi(event: BuyPi): void {
 
     if (market != null) {
         let exchanges = market.exchanges;
-        exchanges.push(exchange.id);
+        exchanges.push(exchangeId);
         market.exchanges = exchanges;
         market.save();
     }
@@ -136,7 +136,7 @@ export function handleSellPi(event: SellPi): void {
 
     if (market != null) {
         let exchanges = market.exchanges;
-        exchanges.push(exchange.id);
+        exchanges.push(exchangeId);
         market.exchanges = exchanges;
         market.save();
     }
