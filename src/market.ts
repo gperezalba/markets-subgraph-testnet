@@ -16,9 +16,17 @@ export function createMarket(event: NewMarket): void {
 
     let marketContract = MarketContract.bind(event.params.market);
 
-    let balance = updateBalances(event.params.market);
+    let balance = marketContract.try_contractBalance();
     let change = marketContract.try_change();
     let commission = marketContract.try_commission();
+
+    if (!balance.reverted) {
+        market.currency1Balance = balance.value.value0.toBigDecimal();
+        market.currency2Balance = balance.value.value1.toBigDecimal();
+    } else {
+        market.currency1Balance = BigDecimal.fromString('0');
+        market.currency2Balance = BigDecimal.fromString('0');
+    }
 
     if (!change.reverted) {
         market.change = change.value.toBigDecimal();
@@ -32,7 +40,7 @@ export function createMarket(event: NewMarket): void {
         market.commission = BigDecimal.fromString('0');
     }
     
-    if ((!balance) && (!change.reverted) && (!commission.reverted)) {
+    if ((!balance.reverted) && (!change.reverted) && (!commission.reverted)) {
         market.updated = true;
     } else {
         market.updated = false;
