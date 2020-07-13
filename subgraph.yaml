@@ -6,7 +6,7 @@ dataSources:
     name: Controller
     network: mainnet
     source:
-      address: "0xdcCB0FE7c182262497B362ea435D4C7A5A67bE40"
+      address: "0xb3A5c676647B7adeeF7aE8c24F81aaF5BcF1147C"
       abi: Controller
     mapping:
       kind: ethereum/events
